@@ -13,22 +13,27 @@ from sklearn.metrics import accuracy_score
 # Load data
 x = pd.read_csv(r"drive/MyDrive/CreditCard.csv") y=x.copy()
 
-# Convert categorical variables into dummy/indicator variables x = pd.get_dummies(x)
+# Convert categorical data into variables using one hot encoding
 
 # Logistic Regression model x_train1 = x.drop(columns='Approved')
 y_train1 = x['Approved']
 
+#split data into
 x_train, x_valid, y_train, y_valid = train_test_split(x_train1, y_train1, test_size=0.2, random_state=100)
+
 
 logreg = LogisticRegression()
 logreg.fit(x_train, y_train)
+logreg.get_params()
 
 y_pred = logreg.predict(x_valid)
 
-accuracy = accuracy_score(y_valid, y_pred) print('Logistic Regression model parameters')
+accuracy = accuracy_score(y_valid, y_pred) 
+print('Logistic Regression model parameters')
 print("Accuracy of the Logistic Regression Model: ", accuracy)
 
-confusion = confusion_matrix(y_valid, y_pred, labels=[1, 0]) print('\nConfusion\n', confusion)
+confusion = confusion_matrix(y_valid, y_pred, labels=[1, 0]) 
+print('\nConfusion\n', confusion)
 
 report = classification_report(y_valid, y_pred)
 print('\nReport\n', report)
